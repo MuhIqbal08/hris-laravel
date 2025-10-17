@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payroll_records', function (Blueprint $table) {
             $table->uuid('uuid')->primary()->unique();
-            $table->foreignUuid('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignUuid('employee_id')->references('uuid')->on('employees')->onDelete('cascade');
             $table->integer('period_month');
             $table->integer('period_year');
             $table->integer('working_days');

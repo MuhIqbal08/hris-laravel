@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->uuid('uuid')->primary()->unique();
-            $table->foreignUuid('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignUuid('employee_id')->references('uuid')->on('employees')->onDelete('cascade');
             $table->decimal('basic_salary', 10, 2);
             $table->json('allowances')->nullable();
             $table->json('deductions')->nullable();

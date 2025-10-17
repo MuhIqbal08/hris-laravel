@@ -14,10 +14,10 @@ return new class extends Migration
         //
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('uuid')->primary()->unique();
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('user_id')->references('uuid')->on('users')->onDelete('cascade');
             $table->string('employee_id');
-            $table->string('postion');
-            $table->foreignUuid('departement_id')->constrained('departments')->onDelete('cascade');
+            $table->string('position');
+            $table->foreignUuid('department_id')->references('uuid')->on('departments')->onDelete('cascade');
             $table->date('join_date');
             $table->timestamps();
         });
