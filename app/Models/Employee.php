@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -36,14 +37,33 @@ class Employee extends Model
         return $this->belongsTo(Department::class, 'department_id', 'uuid');
     }
 
+    public function salaries()
+    {
+        return $this->hasOne(Salary::class, 'employee_id', 'uuid');
+    }
+
     public function attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(Attendance::class, 'employee_id', 'uuid');
     }
 
     public function leaveRequests()
     {
-        return $this->hasMany(LeaveRequest::class);
+        return $this->hasMany(LeaveRequest::class, 'employee_id', 'uuid');
+    }
+
+    public function employeeSchedules()
+    {
+        return $this->hasMany(EmployeeSchedule::class, 'employee_id', 'uuid');
+    }
+
+    public function activeSchedule()
+    {
+        $today = Carbon::today()->toDateString();
+        
+        return $this->hasOne(EmployeeSchedule::class)
+                    ->where('start_date', '<=', $today)
+                    ->where('end_date', '>=', $today);
     }
 
     protected static function boot()

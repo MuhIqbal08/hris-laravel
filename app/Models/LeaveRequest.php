@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,7 +34,7 @@ class LeaveRequest extends Model
      */
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'uuid');
     }
 
     /**
@@ -41,7 +42,7 @@ class LeaveRequest extends Model
      */
     public function approver()
     {
-        return $this->belongsTo(Employee::class, 'approved_by');
+        return $this->belongsTo(Employee::class, 'approved_by', 'uuid');
     }
 
     protected static function boot()
@@ -53,6 +54,51 @@ class LeaveRequest extends Model
             $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
         }
     });
+
+    static::updated(function ($leaveRequest) {
+            // Hanya jalan ketika status berubah jadi approved
+            if ($leaveRequest->status === 'approved') {
+                $employeeId = $leaveRequest->employee_id;
+                $type = strtolower($leaveRequest->type);
+
+                // Ubah type ke status attendance yang sesuai
+                $statusMap = [
+                    'sick' => 'sick',
+                    'leave' => 'on leave',
+                    'izin' => 'on leave',
+                    'cuti' => 'on leave',
+                ];
+
+                $attendanceStatus = $statusMap[$type] ?? 'on leave';
+
+                $employeeSchedule = \App\Models\EmployeeSchedule::where('employee_id', $employeeId)
+                    ->whereDate('start_date', '<=', now())
+                    ->whereDate('end_date', '>=', now())
+                    ->first();
+
+                $workScheduleId = $employeeSchedule?->work_schedule_id;
+
+                $startDate = Carbon::parse($leaveRequest->start_date);
+                $endDate = Carbon::parse($leaveRequest->end_date);
+
+                for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+                    \App\Models\Attendance::updateOrCreate(
+                        [
+                            'employee_id' => $employeeId,
+                            'date' => $date->format('Y-m-d'),
+                        ],
+                        [
+                            'status' => $attendanceStatus,
+                            'check_in_time' => null,
+                            'check_out_time' => null,
+                            'work_schedule_id' => $workScheduleId,
+                            'duration' => null,
+                            'remarks' => $leaveRequest->reason,
+                        ]
+                    );
+                }
+            }
+        });
 }
 }
 

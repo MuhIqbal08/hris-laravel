@@ -16,11 +16,21 @@ class RoleCreate extends Component
     
     public function mount()
     {
-        $this->allPermissions = Permission::get();
+        $this->allPermissions = Permission::orderBy('name', 'asc')->get();
     }
     public function render()
     {
         return view('livewire.role.role-create');
+    }
+
+     public function selectAll()
+    {
+        $this->permissions = $this->allPermissions->pluck('name')->toArray();
+    }
+
+    public function unselectAll()
+    {
+        $this->permissions = [];
     }
 
     public function submit() {

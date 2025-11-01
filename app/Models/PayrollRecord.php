@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class PayrollRecord extends Model
 {
@@ -22,16 +23,24 @@ class PayrollRecord extends Model
     ];
 
     protected $casts = [
-        'period_month' => 'integer',
-        'period_year' => 'integer',
-        'working_days' => 'integer',
-        'net_salary' => 'decimal:2',
         'details' => 'array',
         'is_paid' => 'boolean',
+        'net_salary' => 'decimal:2',
     ];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'uuid');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 }

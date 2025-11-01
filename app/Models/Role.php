@@ -12,11 +12,10 @@ class Role extends SpatieRole
     protected $primaryKey = 'uuid';
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $guarded = [];
 
-    protected static function boot()
+    protected static function booted()
 {
-    parent::boot();
-
     static::creating(function ($model) {
         if (empty($model->{$model->getKeyName()})) {
             $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
