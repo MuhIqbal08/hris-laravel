@@ -24,10 +24,12 @@
                     Create
                 </a>
             @endcan
+            @can('employee-schedule.create')
             <button wire:click="copyWeekSchedule()"
                 class="mb-4 px-4 py-2 text-sm font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                 copy schedule
             </button>
+            @endcan
         </div>
         <div class="overflow-x-auto mt-4">
             <table class="w-full text-sm text-left text-gray-700">

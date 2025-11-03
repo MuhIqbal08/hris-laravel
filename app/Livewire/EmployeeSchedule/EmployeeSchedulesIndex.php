@@ -12,15 +12,22 @@ class EmployeeSchedulesIndex extends Component
     public $search;
     public function render()
     {
-        $employeeSchedules = EmployeeSchedule::with(['employee', 'workSchedule'])
-            ->when($this->search, function ($query) {
-                $query->whereHas('employee', function ($q) {
-                    $q->where('name', 'like', '%' . $this->search . '%');
-                    $q->where('employee_id', 'like', '%' . $this->search . '%');
-                });
-            })
-            ->orderByDesc('created_at')
-            ->paginate(15);
+        $user = auth()->user();
+
+        if($user->hasRole('Admin')) {
+            $employeeSchedules = EmployeeSchedule::with(['employee', 'workSchedule'])
+                ->when($this->search, function ($query) {
+                    $query->whereHas('employee', function ($q) {
+                        $q->where('name', 'like', '%' . $this->search . '%');
+                        $q->where('employee_id', 'like', '%' . $this->search . '%');
+                    });
+                })
+                ->orderByDesc('created_at')
+                ->paginate(15);
+        } else {
+            $employeeSchedules = EmployeeSchedule::with(['employee', 'workSchedule'])
+                ->where('employee_id', $user->employee->uuid)->paginate(15);
+        }
 
         return view('livewire.employee-schedule.employee-schedules-index', compact('employeeSchedules'));
     }

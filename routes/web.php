@@ -75,20 +75,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('department/{uuid}/edit', DepartmentEdit::class)->name('department.edit')->middleware("permission:department.view");
     Route::get('department/{uuid}/detail', DepartmentShow::class)->name('department.show')->middleware("permission:department.show");
 
-    Route::get('route', RoleIndex::class)->name('role.index')->middleware("permission:role.view|role.create|role.edit|role.show");
-    Route::get('route/create', RoleCreate::class)->name('role.create')->middleware("permission:role.create");
-    Route::get('route/{uuid}/edit', RoleEdit::class)->name('role.edit')->middleware("permission:role.edit");
-    Route::get('route/{uuid}/detail', RoleShow::class)->name('role.show')->middleware("permission:role.view");
+    Route::get('role', RoleIndex::class)->name('role.index')->middleware("permission:role.view|role.create|role.edit|role.show");
+    Route::get('role/create', RoleCreate::class)->name('role.create')->middleware("permission:role.create");
+    Route::get('role/{uuid}/edit', RoleEdit::class)->name('role.edit')->middleware("permission:role.edit");
+    Route::get('role/{uuid}/detail', RoleShow::class)->name('role.show')->middleware("permission:role.view");
 
     Route::get('work/schedule', WorkSchedulesIndex::class)->name('work.schedule.index')->middleware("permission:work-schedule.view|work-schedule.create|work-schedule.edit|work-schedule.show");
     Route::get('work/schedule/create', WorkSchedulesCreate::class)->name('work.schedule.create')->middleware("permission:work-schedule.create");
     Route::get('work/schedule/{uuid}/edit', WorkSchedulesEdit::class)->name('work.schedule.edit')->middleware("permission:work-schedule.edit");
     Route::get('work/schedule/{uuid}/detail', WorkSchedulesShow::class)->name('work.schedule.show')->middleware("permission:work-schedule.view");
 
-    Route::get('/employee/schedules', EmployeeSchedulesIndex::class)->name('employee.schedules.index')->middleware("permission:work-schedule.view|work-schedule.create|work-schedule.edit|work-schedule.show");
-    Route::get('/employee/schedules/create', EmployeeSchedulesCreate::class)->name('employee.schedules.create')->middleware("permission:work-schedule.create");
-    Route::get('/employee/schedules/{uuid}/edit', EmployeeSchedulesEdit::class)->name('employee.schedules.edit')->middleware("permission:work-schedule.edit");
-    Route::get('/employee/schedules/{uuid}/detail', EmployeeSchedulesShow::class)->name('employee.schedules.show')->middleware("permission:work-schedule.view");
+    Route::get('/employee/schedules', EmployeeSchedulesIndex::class)->name('employee.schedules.index')->middleware("permission:employee-schedule.view|employee-schedule.create|employee-schedule.edit|employee-schedule.show");
+    Route::get('/employee/schedules/create', EmployeeSchedulesCreate::class)->name('employee.schedules.create')->middleware("permission:employee-schedule.create");
+    Route::get('/employee/schedules/{uuid}/edit', EmployeeSchedulesEdit::class)->name('employee.schedules.edit')->middleware("permission:employee-schedule.edit");
+    Route::get('/employee/schedules/{uuid}/detail', EmployeeSchedulesShow::class)->name('employee.schedules.show')->middleware("permission:employee-schedule.view");
 
     Route::get('/location', LocationIndex::class)->name('location.index')->middleware("permission:location.view|location.create|location.edit|location.show");
     Route::get('/location/create', LocationCreate::class)->name('location.create')->middleware("permission:location.create");
@@ -112,7 +112,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/payroll', PayrollIndex::class)->name('payroll.index')->middleware("permission:payroll.view|payroll.create");
     Route::get('/payroll/create', PayrollCreate::class)->name('payroll.create')->middleware("permission:payroll.create");
-    Route::get('/payroll/{uuid}/detail', PayrollShow::class)->name('payroll.show')->middleware("payroll.view");
+    Route::get('/payroll/{uuid}/detail', PayrollShow::class)->name('payroll.show')->middleware("permission:payroll.view");
 
     Route::get('/salary', SalaryIndex::class)->name('salary.index')->middleware("permission:salary.view|salary.create|salary.edit|salary.show");
     Route::get('/salary/create', SalaryCreate::class)->name('salary.create')->middleware("permission:salary.create");

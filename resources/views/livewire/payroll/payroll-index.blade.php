@@ -59,6 +59,7 @@
                                     class="cursor-pointer px-3 py-2 text-xs font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300">
                                     Show
                                 </a>
+                                
                                 @can('payroll.delete')
                                     <button wire:click="delete('{{ $payroll->uuid }}')"
                                         class="cursor-pointer px-3 py-2 text-xs font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">

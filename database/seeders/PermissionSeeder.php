@@ -14,18 +14,62 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'role.view',
-            'role.create',
-            'role.edit',
-            'role.delete',
-            'employee.view',
-            'employee.create',
-            'employee.edit',
-            'employee.delete',
-            'department.view',
+            'attendance.check-in-out',
+            'attendance.create',
+            'attendance.delete',
+            'attendance.edit',
+            'attendance.show',
+            'attendance.view',
+
             'department.create',
-            'department.edit',
             'department.delete',
+            'department.edit',
+            'department.view',
+
+            'employee.create',
+            'employee.delete',
+            'employee.edit',
+            'employee.view',
+            
+            'employee-schedule.create',
+            'employee-schedule.delete',
+            'employee-schedule.edit',
+            'employee-schedule.view',
+            
+            'leave.approve',
+            'leave.delete',
+            'leave.reject',
+            'leave.view',
+
+            'location.create',
+            'location.delete',
+            'location.edit',
+            'location.view',
+
+            'payroll.create',
+            'payroll.delete',
+            'payroll.paid',
+            'payroll.view',
+
+            'permission.create',
+            'permission.delete',
+            'permission.edit',
+            'permission.view',
+
+            'role.create',
+            'role.delete',
+            'role.edit',
+            'role.view',
+
+            'salary.create',
+            'salary.delete',
+            'salary.edit',
+            'salary.view',
+
+            'work-schedule.create',
+            'work-schedule.delete',
+            'work-schedule.edit',
+            'work-schedule.view',
         ];
 
         foreach ($permissions as $permission) {

@@ -16,10 +16,12 @@
                 <span class="font-medium"> {{ $value }} </span>
             </div>
         @endsession
-        <a href="{{ route('leave.create') }}"
-            class="mb-4 px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-            Create
-        </a>
+        @can('leave.create')
+            <a href="{{ route('leave.create') }}"
+                class="mb-4 px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                Create
+            </a>
+        @endcan
         <div class="overflow-x-auto mt-4">
             <table class="w-full text-sm text-left text-gray-700">
                 <thead class="text-xs uppercase bg-gray-50 text-gray-700">

@@ -30,7 +30,8 @@ class PayrollShow extends Component
     // Sanitasi semua string agar aman dari error encoding
     $sanitizeUtf8 = function (&$value) {
         if (is_string($value) && !mb_check_encoding($value, 'UTF-8')) {
-            $value = utf8_encode($value);
+            $value = mb_convert_encoding($value, 'UTF-8', 'auto');
+
         }
     };
 

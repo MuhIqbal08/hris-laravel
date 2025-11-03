@@ -13,7 +13,7 @@ class SalaryIndex extends Component
     {
         $user = auth()->user();
 
-        if($user) {
+        if($user->hasRole('Admin')) {
             $salaries = Salary::with('employee')->paginate(15);
         } else {
             $salaries = Salary::with('employee')->where('employee_id', $user->employee->uuid)->paginate(15);
