@@ -60,11 +60,11 @@ class AttendanceCreate extends Component
 
         // Cek apakah sudah absen hari ini
         $todayAttendanceExists = Attendance::where('employee_id', $this->employee_id)
-            ->whereDate('date', Carbon::today())
+            ->whereDate('date', $this->date)
             ->exists();
 
         if ($todayAttendanceExists) {
-            session()->flash('error', 'Anda sudah melakukan absensi hari ini.');
+            session()->flash('error', 'Karyawan sudah melakukan absensi hari ini.');
             return;
         }
 

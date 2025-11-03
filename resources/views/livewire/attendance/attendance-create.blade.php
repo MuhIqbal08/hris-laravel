@@ -30,12 +30,12 @@
 
             <div class="flex flex-col gap-2">
                 <label class="text-sm font-medium">Jam Masuk</label>
-                <input type="time" wire:model="check_in_time" class="form-input border rounded p-2 w-full" />
+                <input type="datetime-local" wire:model="check_in_time" class="form-input border rounded p-2 w-full" />
             </div>
 
             <div class="flex flex-col gap-2">
                 <label class="text-sm font-medium">Jam Keluar</label>
-                <input type="time" wire:model="check_out_time" class="form-input border rounded p-2 w-full" />
+                <input type="datetime-local" wire:model="check_out_time" class="form-input border rounded p-2 w-full" />
             </div>
 
             <flux:input wire:model="date" type="date" label="Tanggal" max="2999-12-31" />

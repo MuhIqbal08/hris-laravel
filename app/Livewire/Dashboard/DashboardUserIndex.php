@@ -16,7 +16,7 @@ class DashboardUserIndex extends Component
         $today = Carbon::today();
 
         // --- Kehadiran Hari Ini ---
-        $todayAttendance = Attendance::where('employee_id', $employee->id ?? null)
+        $todayAttendance = Attendance::where('employee_id', $employee->uuid ?? null)
             ->whereDate('date', $today)
             ->first();
 
@@ -25,22 +25,22 @@ class DashboardUserIndex extends Component
         $weekEnd = Carbon::now()->endOfWeek();
 
         $weeklyStats = [
-            'present' => Attendance::where('employee_id', $employee->id ?? null)
+            'present' => Attendance::where('employee_id', $employee->uuid ?? null)
                 ->whereBetween('date', [$weekStart, $weekEnd])
                 ->where('status', 'present')
                 ->count(),
-            'late' => Attendance::where('employee_id', $employee->id ?? null)
+            'late' => Attendance::where('employee_id', $employee->uuid ?? null)
                 ->whereBetween('date', [$weekStart, $weekEnd])
                 ->where('status', 'late')
                 ->count(),
-            'on_leave' => Attendance::where('employee_id', $employee->id ?? null)
+            'on_leave' => Attendance::where('employee_id', $employee->uuid ?? null)
                 ->whereBetween('date', [$weekStart, $weekEnd])
                 ->where('status', 'on leave')
                 ->count(),
         ];
 
         // --- Gaji Terakhir ---
-        $lastPayroll = PayrollRecord::where('employee_id', $employee->id ?? null)
+        $lastPayroll = PayrollRecord::where('employee_id', $employee->uuid ?? null)
             ->latest('created_at')
             ->first();
             

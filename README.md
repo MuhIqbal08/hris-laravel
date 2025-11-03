@@ -35,9 +35,8 @@ This project aims to provide basic HR management features in an easy-to-use and 
 ![Admin Dashboard](public/admin.svg)
 
 ### Employee Dashboard
-![Employee Dashboard](path/to/employee-screenshot.png)
+![Employee Dashboard](public/employee.svg)
 
-> Replace `path/to/...` with the actual paths to your images (e.g. `public/images/admin.png`).
 
 ---
 

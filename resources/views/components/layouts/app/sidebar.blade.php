@@ -15,8 +15,13 @@
 
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Platform')" class="grid">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                @if(auth()->user()->hasRole('admin'))
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                        wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                @else
+                    <flux:navlist.item icon="home" :href="route('dashboard.user')" :current="request()->routeIs('dashboard.user')"
+                        wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                @endif
                 @can('employee.view')
                     <flux:navlist.item icon="users" :href="route('employee.index')"
                         :current="request()->routeIs('employee.index')" wire:navigate>{{ __('Employees') }}

@@ -109,7 +109,7 @@
                                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200">
                                     <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                                     <span class="text-xl font-bold text-gray-900">
-                                        {{ \Carbon\Carbon::parse($todayAttendance->check_in)->format('H:i') }}
+                                        {{ \Carbon\Carbon::parse($todayAttendance->check_in_time)->format('H:i') }}
                                     </span>
                                 </div>
                             </div>
