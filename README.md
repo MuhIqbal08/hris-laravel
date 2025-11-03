@@ -48,23 +48,28 @@ This project aims to provide basic HR management features in an easy-to-use and 
    cd hris-laravel
 
 2. **Install dependencies**
+    ```bash
     composer install
     npm install && npm run dev
 
 
 3. **Set up environment**
+    ```bash
     cp .env.example .env
     php artisan key:generate
 
 
 4. **Configure your database**
+    ```bash
     Update the .env file with your database credentials.
 
 5. **Run migrations and seeders**
+    ```bash
     php artisan migrate --seed
 
 
 6. **Run the application**
+    ```bash
     php artisan serve
 
 
